@@ -6,3 +6,52 @@ Logging:
 AllowedHosts: "*"
 JWT:
   Key: "This is a very secret key that i will use to sign my tokens"
+  Issuer: "MamisSolidarias-Gateway"
+  
+ReverseProxy:
+  Routes:
+    users:
+      ClusterId: users
+      Match:
+        Path: /api/users/{**catch-all}
+      Transforms:
+        - PathRemovePrefix: /api
+    donors:
+      ClusterId: donors
+      Match:
+        Path: /api/donors/{**catch-all}
+      Transforms:
+        - PathRemovePrefix: /api
+    beneficiaries-beneficiaries:
+      ClusterId: beneficiaries
+      Match:
+        Path: /api/beneficiaries/{**catch-all}
+      Transforms:
+        - PathRemovePrefix: /api
+    beneficiaries-families:
+      ClusterId: beneficiaries
+      Match:
+        Path: /api/families/{**catch-all}
+      Transforms:
+        - PathRemovePrefix: /api
+    beneficiaries-communities:
+      ClusterId: beneficiaries
+      Match:
+        Path: /api/communities/{**catch-all}
+      Transforms:
+        - PathRemovePrefix: /api
+  Clusters:
+    users:
+      Destinations:
+        users-1:
+          Address: http://localhost:8000/
+    beneficiaries:
+      Destinations:
+        beneficiaries-1:
+          Address: http://localhost:8001/
+    donors:
+      Destinations:
+        donors-1:
+          Address: http://localhost:8002/
+    
+  
