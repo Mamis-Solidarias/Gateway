@@ -28,16 +28,7 @@ internal sealed class Endpoint : Endpoint<Request,Response>
     {
         try
         {
-            // var c = new System.Net.Http.HttpClient()
-            // {
-            //     BaseAddress = new Uri("http://localhost:5279")
-            // };
-            //
             var a =new UsersClient.SignInRequest(req.Email, req.Password);
-             // var r =  await c.PostAsJsonAsync("users/auth", a, cancellationToken: ct);
-            // var rr =  await r.Content.ReadFromJsonAsync<UsersClient.SignInResponse>(cancellationToken: ct);
-            //
-            
             var response = await _usersClient.SignIn(a, ct);
 
             if (response is null)

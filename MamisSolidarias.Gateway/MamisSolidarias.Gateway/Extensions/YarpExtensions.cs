@@ -3,7 +3,7 @@ using Yarp.ReverseProxy.Transforms;
 
 namespace MamisSolidarias.Gateway.Extensions;
 
-public static class Yarp
+public static class YarpExtensions
 {
     public static void AddYarp(this IServiceCollection services, IConfiguration configuration)
     {

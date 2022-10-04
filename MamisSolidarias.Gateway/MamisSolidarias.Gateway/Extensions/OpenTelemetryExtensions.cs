@@ -3,7 +3,7 @@ using OpenTelemetry.Trace;
 
 namespace MamisSolidarias.Gateway.Extensions;
 
-internal static class OpenTelemetry
+internal static class OpenTelemetryExtensions
 {
     public static void AddOpenTelemetry(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
     {
@@ -25,7 +25,12 @@ internal static class OpenTelemetry
             {
                 tracerProviderBuilder
                     .AddConsoleExporter()
-                    .AddJaegerExporter();
+                    .AddJaegerExporter(t =>
+                    {
+                        var jaegerHost = configuration["OpenTelemetry:Jaeger:Host"];
+                        if (jaegerHost is not null)
+                            t.Endpoint = new Uri($"{jaegerHost}/api/traces");
+                    });
             }
         });
     }
