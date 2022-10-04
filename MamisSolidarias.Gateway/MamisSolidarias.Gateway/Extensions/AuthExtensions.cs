@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MamisSolidarias.Gateway.Extensions;
 
-public static class Auth
+internal static class AuthExtensions
 {
     public static void AddAuth(this IServiceCollection service)
     {

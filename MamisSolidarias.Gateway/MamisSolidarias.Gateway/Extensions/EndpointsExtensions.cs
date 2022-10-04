@@ -3,7 +3,7 @@ using FastEndpoints.Swagger;
 
 namespace MamisSolidarias.Gateway.Extensions;
 
-static class Endpoints
+internal static class EndpointsExtensions
 {
     public static void AddAuthEndpoints(this IServiceCollection service, IConfiguration configuration, IWebHostEnvironment env)
     {
