@@ -34,7 +34,7 @@ internal sealed class Cookie2Jwt: RequestTransform
         {
             Subject = new ClaimsIdentity(claims),
             Audience = context.DestinationPrefix,
-            Issuer = "https://localhost:5001/",
+            Issuer = _configuration["Jwt:Issuer"],
             Expires = DateTime.UtcNow.AddMinutes(1),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
