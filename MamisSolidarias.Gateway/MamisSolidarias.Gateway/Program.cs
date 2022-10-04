@@ -8,6 +8,7 @@ builder.Configuration.AddYamlFile("appsettings.yml", optional: true, reloadOnCha
 builder.Services.AddAuthEndpoints(builder.Configuration,builder.Environment);
 builder.Services.AddAuth();
 builder.Services.AddYarp(builder.Configuration);
+builder.Services.AddOpenTelemetry(builder.Configuration, builder.Environment);
 builder.AddUsersHttpClient();
 
 var app = builder.Build();
