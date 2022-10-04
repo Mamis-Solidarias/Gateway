@@ -3,9 +3,15 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - MamisSolidarias.Gateway/**
+      - MamisSolidarias.Gateway.sln
 
   pull_request:
     branches: [ "main" ]
+    paths:
+      - MamisSolidarias.Gateway/**
+      - MamisSolidarias.Gateway.sln
 
 jobs:
   build:
