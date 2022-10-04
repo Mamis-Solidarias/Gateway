@@ -8,10 +8,16 @@ name: Docker
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - MamisSolidarias.Gateway/**
+      - MamisSolidarias.Gateway.sln
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "main" ]
+    paths:
+      - MamisSolidarias.Gateway/**
+      - MamisSolidarias.Gateway.sln
     
   workflow_dispatch:
     
