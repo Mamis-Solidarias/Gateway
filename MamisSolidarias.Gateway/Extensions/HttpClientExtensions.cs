@@ -6,7 +6,7 @@ internal static class HttpClientExtensions
 {
     public static void AddGraphQlHttpClient(this IServiceCollection services, Services service,string baseAddress)
     {
-        services.AddHttpClient($"{service}-gql", (provider, client) =>
+        services.AddHttpClient($"{service}gql", (provider, client) =>
         {
             client.BaseAddress = new Uri(baseAddress);
             
