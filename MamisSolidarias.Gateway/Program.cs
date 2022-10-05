@@ -3,8 +3,6 @@ using MamisSolidarias.HttpClient.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddYamlFile("appsettings.yml", optional: true, reloadOnChange: true);
-
 builder.Services.AddAuthEndpoints(builder.Configuration,builder.Environment);
 builder.Services.AddAuth();
 builder.Services.AddYarp(builder.Configuration);
