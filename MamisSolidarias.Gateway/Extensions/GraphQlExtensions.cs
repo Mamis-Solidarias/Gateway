@@ -8,10 +8,14 @@ internal static class GraphQlExtensions
     {
         services.AddGraphQlHttpClient(Services.Beneficiaries, configuration["GraphQl:Beneficiaries:Url"]);
         services.AddGraphQlHttpClient(Services.Donors, configuration["GraphQl:Donors:Url"]);
+        services.AddGraphQlHttpClient(Services.Users, configuration["GraphQl:Users:Url"]);
+        services.AddGraphQlHttpClient(Services.Campaigns, configuration["GraphQl:Campaigns:Url"]);
         
         services.AddGraphQLServer()
             .AddRemoteSchema($"{Services.Beneficiaries}gql")
             .AddRemoteSchema($"{Services.Donors}gql")
+            .AddRemoteSchema($"{Services.Users}gql")
+            .AddRemoteSchema($"{Services.Campaigns}gql")
             ;
     }
 
