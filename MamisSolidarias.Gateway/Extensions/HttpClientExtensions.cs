@@ -4,8 +4,11 @@ namespace MamisSolidarias.Gateway.Extensions;
 
 internal static class HttpClientExtensions
 {
-    public static void AddGraphQlHttpClient(this IServiceCollection services, Services service,string baseAddress)
+    public static void AddGraphQlHttpClient(this IServiceCollection services, Services service,string? baseAddress)
     {
+        if (baseAddress is null)
+            return;
+        
         services.AddHttpClient($"{service}gql", (provider, client) =>
         {
             client.BaseAddress = new Uri(baseAddress);

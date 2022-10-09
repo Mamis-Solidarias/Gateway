@@ -1,3 +1,4 @@
+using HotChocolate.Execution.Configuration;
 using MamisSolidarias.Utils.Security;
 
 namespace MamisSolidarias.Gateway.Extensions;
@@ -12,11 +13,20 @@ internal static class GraphQlExtensions
         services.AddGraphQlHttpClient(Services.Campaigns, configuration["GraphQl:Campaigns:Url"]);
         
         services.AddGraphQLServer()
-            .AddRemoteSchema($"{Services.Beneficiaries}gql")
-            .AddRemoteSchema($"{Services.Donors}gql")
-            .AddRemoteSchema($"{Services.Users}gql")
-            .AddRemoteSchema($"{Services.Campaigns}gql")
+            .AddGraphQlSchema(services,Services.Beneficiaries,configuration["GraphQl:Beneficiaries:Url"])
+            .AddGraphQlSchema(services,Services.Donors,configuration["GraphQl:Donors:Url"])
+            .AddGraphQlSchema(services,Services.Users,configuration["GraphQl:Users:Url"])
+            .AddGraphQlSchema(services,Services.Campaigns,configuration["GraphQl:Campaigns:Url"])
             ;
+    }
+    
+    private static IRequestExecutorBuilder AddGraphQlSchema(this IRequestExecutorBuilder graphql, IServiceCollection services , Services name, string? url)
+    {
+        if (url is null)
+            return graphql;
+        
+        services.AddGraphQlHttpClient(name, url);
+        return graphql.AddRemoteSchema($"{name}gql");
     }
 
     public static void UseGraphQl(this WebApplication app)
