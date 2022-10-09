@@ -16,8 +16,7 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - MamisSolidarias.Gateway/**
-      - MamisSolidarias.Gateway.sln
+      - .github/workflows/docker-publish.yml
     
   workflow_dispatch:
     
