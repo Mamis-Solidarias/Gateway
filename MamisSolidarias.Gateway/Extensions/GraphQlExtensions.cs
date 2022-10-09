@@ -19,12 +19,17 @@ internal static class GraphQlExtensions
             .AddGraphQlSchema(services,Services.Campaigns,configuration["GraphQl:Campaigns:Url"])
             ;
     }
-    
+
     private static IRequestExecutorBuilder AddGraphQlSchema(this IRequestExecutorBuilder graphql, IServiceCollection services , Services name, string? url)
     {
-        if (url is null)
+        if ( string.IsNullOrEmpty(url))
+        {
+            Console.WriteLine($"Skipping {name} because it is not configured");
             return graphql;
+        }
         
+        Console.WriteLine($"Adding GraphQL Schema for {name} at {url}");
+
         services.AddGraphQlHttpClient(name, url);
         return graphql.AddRemoteSchema($"{name}gql");
     }
