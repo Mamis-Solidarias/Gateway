@@ -18,6 +18,12 @@ internal sealed class Cookie2Jwt: RequestTransform
         var user = context.HttpContext.User;
         if (!(user.Identity?.IsAuthenticated ?? false)) 
             return ValueTask.CompletedTask;
+
+        if (context.HttpContext.Request.Headers.Authorization.Any())
+        {
+            context.ProxyRequest.Headers.Add("Authorization", context.HttpContext.Request.Headers.Authorization.First());
+            return ValueTask.CompletedTask;
+        }
         
         var claims = user.Claims.ToList();
         var nameIdentifierClaim = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);

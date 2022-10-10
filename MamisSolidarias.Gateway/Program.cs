@@ -4,7 +4,7 @@ using MamisSolidarias.HttpClient.Users;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthEndpoints(builder.Configuration,builder.Environment);
-builder.Services.AddAuth();
+builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddYarp(builder.Configuration);
 builder.Services.AddOpenTelemetry(builder.Configuration, builder.Environment);
 builder.Services.AddGraphQl(builder.Configuration);
