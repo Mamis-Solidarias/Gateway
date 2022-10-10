@@ -21,6 +21,12 @@ internal static class HttpClientExtensions
             {
                 client.DefaultRequestHeaders.Add("Cookie", cookie.First());
             }
+            
+            if (context.Request.Headers.TryGetValue("Authorization", out var auth) && auth.Any())
+            {
+                client.DefaultRequestHeaders.Authorization = null;
+                client.DefaultRequestHeaders.Add("Authorization", auth.First());
+            }
         });
     }
 }

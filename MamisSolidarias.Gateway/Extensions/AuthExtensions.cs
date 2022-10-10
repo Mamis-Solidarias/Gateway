@@ -1,10 +1,13 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MamisSolidarias.Gateway.Extensions;
 
 internal static class AuthExtensions
 {
-    public static void AddAuth(this IServiceCollection service)
+    public static void AddAuth(this IServiceCollection service, IConfiguration configuration)
     {
         service.AddAuthorization();
         service.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -22,6 +25,16 @@ internal static class AuthExtensions
                 options.Cookie.HttpOnly = false;
                 // Only use this when the sites are on different domains
                 options.Cookie.SameSite = SameSiteMode.None;
+            })
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Jwt:Key"])),
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["Jwt:Issuer"]
+                };
             });
     }
 
