@@ -1,3 +1,4 @@
+using HotChocolate.Diagnostics;
 using HotChocolate.Execution.Configuration;
 using MamisSolidarias.Utils.Security;
 
@@ -11,13 +12,19 @@ internal static class GraphQlExtensions
         services.AddGraphQlHttpClient(Services.Donors, configuration["GraphQl:Donors:Url"]);
         services.AddGraphQlHttpClient(Services.Users, configuration["GraphQl:Users:Url"]);
         services.AddGraphQlHttpClient(Services.Campaigns, configuration["GraphQl:Campaigns:Url"]);
-        
+
         services.AddGraphQLServer()
-            .AddGraphQlSchema(services,Services.Beneficiaries,configuration["GraphQl:Beneficiaries:Url"])
-            .AddGraphQlSchema(services,Services.Donors,configuration["GraphQl:Donors:Url"])
-            .AddGraphQlSchema(services,Services.Users,configuration["GraphQl:Users:Url"])
-            .AddGraphQlSchema(services,Services.Campaigns,configuration["GraphQl:Campaigns:Url"])
-            ;
+            .AddGraphQlSchema(services, Services.Beneficiaries, configuration["GraphQl:Beneficiaries:Url"])
+            .AddGraphQlSchema(services, Services.Donors, configuration["GraphQl:Donors:Url"])
+            .AddGraphQlSchema(services, Services.Users, configuration["GraphQl:Users:Url"])
+            .AddGraphQlSchema(services, Services.Campaigns, configuration["GraphQl:Campaigns:Url"])
+            .AddInstrumentation(t =>
+            {
+                t.Scopes = ActivityScopes.All;
+                t.IncludeDocument = true;
+                t.RequestDetails = RequestDetails.All;
+                t.IncludeDataLoaderKeys = true;
+            });
     }
 
     private static IRequestExecutorBuilder AddGraphQlSchema(this IRequestExecutorBuilder graphql, IServiceCollection services , Services name, string? url)

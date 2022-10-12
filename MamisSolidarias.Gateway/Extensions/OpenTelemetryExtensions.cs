@@ -18,18 +18,19 @@ internal static class OpenTelemetryExtensions
                             serviceVersion: configuration["OpenTelemetry:Version"]
                         )
                 )
-                .AddHttpClientInstrumentation()
-                .AddAspNetCoreInstrumentation();
+                .AddHttpClientInstrumentation(t=> t.RecordException = true)
+                .AddAspNetCoreInstrumentation(t => t.RecordException = true)
+                .AddHotChocolateInstrumentation();
             
-            if (env.IsDevelopment())
+            if (!env.IsProduction())
             {
                 tracerProviderBuilder
                     .AddConsoleExporter()
                     .AddJaegerExporter(t =>
                     {
-                        var jaegerHost = configuration["OpenTelemetry:Jaeger:Host"];
+                        var jaegerHost = configuration["OpenTelemetry:Jaeger:Endpoint"];
                         if (jaegerHost is not null)
-                            t.Endpoint = new Uri($"{jaegerHost}/api/traces");
+                            t.Endpoint = new Uri(jaegerHost);
                     });
             }
         });
