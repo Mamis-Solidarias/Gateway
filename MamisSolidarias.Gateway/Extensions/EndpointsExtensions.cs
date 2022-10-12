@@ -19,7 +19,7 @@ internal static class EndpointsExtensions
         app.UseAuthorization();
         app.UseFastEndpoints();
 
-        if (app.Environment.IsDevelopment())
+        if (!app.Environment.IsProduction())
         {
             app.UseOpenApi();
             app.UseSwaggerUi3(t => t.ConfigureDefaults());
