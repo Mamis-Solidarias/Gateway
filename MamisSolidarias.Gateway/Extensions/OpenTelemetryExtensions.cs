@@ -28,9 +28,9 @@ internal static class OpenTelemetryExtensions
                     .AddConsoleExporter()
                     .AddJaegerExporter(t =>
                     {
-                        var jaegerHost = configuration["OpenTelemetry:Jaeger:Endpoint"];
+                        var jaegerHost = configuration["OpenTelemetry:Jaeger:Host"];
                         if (jaegerHost is not null)
-                            t.Endpoint = new Uri(jaegerHost);
+                            t.AgentHost = jaegerHost;
                     });
             }
         });
