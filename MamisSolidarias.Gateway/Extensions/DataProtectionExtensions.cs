@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 
 namespace MamisSolidarias.Gateway.Extensions;
 
-internal static class DataProtection
+internal static class DataProtectionExtensions
 {
     public static void AddDataProtection(this IServiceCollection services, IConfiguration configuration)
     {
