@@ -16,7 +16,7 @@
       <PackageReference Include="FastEndpoints.Security" Version="5.3.1" />
       <PackageReference Include="FastEndpoints.Swagger" Version="5.3.1" />
       <PackageReference Include="HotChocolate.AspNetCore" Version="12.15.0" />
-      <PackageReference Include="HotChocolate.Diagnostics" Version="12.15.0" />
+      <PackageReference Include="HotChocolate.Diagnostics" Version="12.15.1" />
       <PackageReference Include="HotChocolate.Stitching" Version="12.15.0" />
       <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.15.0" />
       <PackageReference Include="MamisSolidarias.HttpClient.Users" Version="1.0.8" />
