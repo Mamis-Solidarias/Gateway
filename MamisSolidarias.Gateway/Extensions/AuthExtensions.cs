@@ -9,34 +9,42 @@ internal static class AuthExtensions
 {
     public static void AddAuth(this IServiceCollection service, IConfiguration configuration)
     {
+        var options = configuration.GetSection("Jwt").Get<JwtOptions>();
+
+        if (options is null)
+        {
+            throw new ArgumentException("JWT options not found");
+        }
+        
         service.AddAuthorization();
         service.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
             {
-                options.Cookie.Name = "MamisSolidarias.Auth";
-                options.SlidingExpiration = true;
-                options.ExpireTimeSpan = new TimeSpan(48, 0, 0);
-                options.Events.OnRedirectToLogin = context =>
+                o.Cookie.Name = "MamisSolidarias.Auth";
+                o.SlidingExpiration = true;
+                o.ExpireTimeSpan = new TimeSpan(48, 0, 0);
+                o.Events.OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     return Task.CompletedTask;
                 };
 
-                options.Cookie.HttpOnly = false;
+                o.Cookie.HttpOnly = false;
                 // Only use this when the sites are on different domains
-                options.Cookie.SameSite = SameSiteMode.None;
+                o.Cookie.SameSite = SameSiteMode.None;
             })
-            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, o =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
+                o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Jwt:Key"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(options.Key)),
                     ValidateIssuer = true,
-                    ValidIssuer = configuration["Jwt:Issuer"]
+                    ValidIssuer = options.Issuer
                 };
             });
     }
+    private sealed record JwtOptions(string Key, string Issuer);
 
     public static void UseAuth(this WebApplication app)
     {

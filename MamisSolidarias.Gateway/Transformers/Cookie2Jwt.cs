@@ -27,7 +27,7 @@ internal sealed class Cookie2Jwt: RequestTransform
         
         var claims = user.Claims.ToList();
         var nameIdentifierClaim = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-        if (nameIdentifierClaim is not null && !user.HasClaim(x => x.Type == ClaimTypes.Name))
+        if (nameIdentifierClaim is not null && !user.HasClaim(x => x.Type is ClaimTypes.Name))
         {
             claims.Remove(nameIdentifierClaim);
             claims.Add(new Claim(ClaimTypes.Name, nameIdentifierClaim.Value));
@@ -35,7 +35,7 @@ internal sealed class Cookie2Jwt: RequestTransform
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? throw new ArgumentException("Jwt:Key not found in configuration"));
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
