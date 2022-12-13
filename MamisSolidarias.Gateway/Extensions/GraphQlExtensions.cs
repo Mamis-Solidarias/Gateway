@@ -1,5 +1,4 @@
 using HotChocolate.Diagnostics;
-using HotChocolate.Execution.Configuration;
 using MamisSolidarias.Utils.Security;
 using StackExchange.Redis;
 
@@ -18,7 +17,8 @@ internal static class GraphQlExtensions
         services.AddSingleton(ConnectionMultiplexer.Connect(redisConnectionString));
 
         services.AddGraphQLServer()
-            .AddRemoteSchemasFromRedis(configuration["GraphQl:GlobalSchemaName"],t=> t.GetRequiredService<ConnectionMultiplexer>())
+            .AddRemoteSchemasFromRedis(configuration["GraphQl:GlobalSchemaName"] ?? throw new ArgumentException("GraphQl:GlobalSchemaName"),
+                t => t.GetRequiredService<ConnectionMultiplexer>())
             .AddInstrumentation(t =>
             {
                 t.Scopes = ActivityScopes.All;
@@ -27,6 +27,7 @@ internal static class GraphQlExtensions
                 t.IncludeDataLoaderKeys = true;
             });
     }
+    
 
     public static void UseGraphQl(this WebApplication app)
     {

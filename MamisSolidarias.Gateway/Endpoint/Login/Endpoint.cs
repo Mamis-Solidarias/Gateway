@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Json;
 using FastEndpoints;
 using MamisSolidarias.HttpClient.Users.UsersClient;
 using Microsoft.AspNetCore.Authentication;
@@ -9,10 +8,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MamisSolidarias.Gateway.Endpoint.Login;
 
-internal sealed class Endpoint : Endpoint<Request,Response>
+internal sealed class Endpoint : Endpoint<Request, Response>
 {
     private readonly IUsersClient _usersClient;
-    
+
     public Endpoint(IUsersClient usersClient)
     {
         _usersClient = usersClient;
@@ -28,20 +27,20 @@ internal sealed class Endpoint : Endpoint<Request,Response>
     {
         try
         {
-            var a =new UsersClient.SignInRequest(req.Email, req.Password);
+            var a = new UsersClient.SignInRequest(req.Email, req.Password);
             var response = await _usersClient.SignIn(a, ct);
 
             if (response is null)
             {
-                await SendErrorsAsync(401,cancellation: ct);
+                await SendErrorsAsync(401, ct);
                 return;
             }
-            
+
             var jwtHandler = new JwtSecurityTokenHandler();
             var token = jwtHandler.ReadJwtToken(response.Jwt);
 
             var claimsIdentity = new ClaimsIdentity(
-                token.Claims, 
+                token.Claims,
                 CookieAuthenticationDefaults.AuthenticationScheme
             );
 
@@ -55,10 +54,8 @@ internal sealed class Endpoint : Endpoint<Request,Response>
         }
         catch (HttpRequestException ex)
         {
-            HttpContext.Response.StatusCode = (int?) ex.StatusCode ?? 500;
+            HttpContext.Response.StatusCode = (int?)ex.StatusCode ?? 500;
             await HttpContext.Response.BodyWriter.WriteAsync(Encoding.UTF8.GetBytes(ex.Message), ct);
         }
     }
-
-
 }

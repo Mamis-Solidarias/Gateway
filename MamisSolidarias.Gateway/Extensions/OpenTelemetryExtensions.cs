@@ -11,6 +11,9 @@ internal static class OpenTelemetryExtensions
         ILoggingBuilder logging)
     {
         var options = configuration.GetSection("OpenTelemetry").Get<OpenTelemetryOptions>();
+        
+        if (options is null)
+            return;
 
         var resourceBuilder = ResourceBuilder
             .CreateDefault()
@@ -77,7 +80,6 @@ internal static class OpenTelemetryExtensions
             t.Endpoint = new Uri(newRelicOptions.Url);
             t.Headers = $"api-key={newRelicOptions.ApiKey}";
         });
-        ;
     }
 
     private static MeterProviderBuilder AddNewRelicExporter(this MeterProviderBuilder builder,
