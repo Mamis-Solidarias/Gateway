@@ -21,7 +21,7 @@
       <PackageReference Include="HotChocolate.Stitching" Version="12.15.2" />
       <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.15.2" />
       <PackageReference Include="MamisSolidarias.HttpClient.Users" Version="1.0.14" />
-      <PackageReference Include="MamisSolidarias.Utils" Version="1.4.3" />
+      <PackageReference Include="MamisSolidarias.Utils" Version="1.4.4" />
       <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.4.0-rc.1" />
       <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.4.0-rc.1" />
       <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.4.0-rc.1" />
