@@ -21,8 +21,7 @@ internal static class EndpointsExtensions
 
         if (!app.Environment.IsProduction())
         {
-            app.UseOpenApi();
-            app.UseSwaggerUi3(t => t.ConfigureDefaults());
+            app.UseSwaggerGen();
         }
     }
 }
