@@ -12,6 +12,7 @@ internal static class GraphQlExtensions
         services.AddGraphQlHttpClient(Services.Donors, configuration["GraphQl:Donors:Url"]);
         services.AddGraphQlHttpClient(Services.Users, configuration["GraphQl:Users:Url"]);
         services.AddGraphQlHttpClient(Services.Campaigns, configuration["GraphQl:Campaigns:Url"]);
+        services.AddGraphQlHttpClient(Services.Donations, configuration["GraphQl:Donations:Url"]);
 
         var redisConnectionString = $"{configuration["Redis:Host"]}:{configuration["Redis:Port"]}";
         services.AddSingleton(ConnectionMultiplexer.Connect(redisConnectionString));
