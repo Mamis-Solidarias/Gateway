@@ -19,7 +19,7 @@
       <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.16.0" />
       <PackageReference Include="MamisSolidarias.HttpClient.Users" Version="1.0.16" />
       <PackageReference Include="MamisSolidarias.Utils" Version="1.5.0" />
-      <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.4.0-rc.1" />
+      <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.4.0-rc.2" />
       <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.4.0-rc.1" />
       <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.4.0-rc.1" />
       <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol.Logs" Version="1.4.0-rc.1" />
