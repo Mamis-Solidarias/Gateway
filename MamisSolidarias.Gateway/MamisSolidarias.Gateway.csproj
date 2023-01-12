@@ -26,7 +26,7 @@
       <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.4.0-rc.1" />
       <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.10" />
       <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.10" />
-      <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.1.0-beta.2" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.1.0-beta.3" />
       <PackageReference Include="Yarp.ReverseProxy" Version="1.1.1" />
       <PackageReference Include="Yarp.Telemetry.Consumption" Version="1.1.1" />
     </ItemGroup>
