@@ -1,5 +1,4 @@
 using HotChocolate.Diagnostics;
-using MamisSolidarias.Utils.Security;
 using StackExchange.Redis;
 
 namespace MamisSolidarias.Gateway.Extensions;
@@ -8,11 +7,11 @@ internal static class GraphQlExtensions
 {
     public static void AddGraphQl(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddGraphQlHttpClient(Services.Beneficiaries, configuration["GraphQl:Beneficiaries:Url"]);
-        services.AddGraphQlHttpClient(Services.Donors, configuration["GraphQl:Donors:Url"]);
-        services.AddGraphQlHttpClient(Services.Users, configuration["GraphQl:Users:Url"]);
-        services.AddGraphQlHttpClient(Services.Campaigns, configuration["GraphQl:Campaigns:Url"]);
-        services.AddGraphQlHttpClient(Services.Donations, configuration["GraphQl:Donations:Url"]);
+        services.AddGraphQlHttpClient(Utils.Security.Services.Beneficiaries, configuration["GraphQl:Beneficiaries:Url"]);
+        services.AddGraphQlHttpClient(Utils.Security.Services.Donors, configuration["GraphQl:Donors:Url"]);
+        services.AddGraphQlHttpClient(Utils.Security.Services.Users, configuration["GraphQl:Users:Url"]);
+        services.AddGraphQlHttpClient(Utils.Security.Services.Campaigns, configuration["GraphQl:Campaigns:Url"]);
+        services.AddGraphQlHttpClient(Utils.Security.Services.Donations, configuration["GraphQl:Donations:Url"]);
 
         var redisConnectionString = $"{configuration["Redis:Host"]}:{configuration["Redis:Port"]}";
         services.AddSingleton(ConnectionMultiplexer.Connect(redisConnectionString));
