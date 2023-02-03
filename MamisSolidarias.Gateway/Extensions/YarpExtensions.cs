@@ -1,3 +1,4 @@
+using MamisSolidarias.Gateway.Services;
 using MamisSolidarias.Gateway.Transformers;
 using Yarp.ReverseProxy.Transforms;
 
@@ -11,7 +12,7 @@ public static class YarpExtensions
             .LoadFromConfig(configuration.GetSection("ReverseProxy"))
             .AddTransforms(t =>
             {
-                t.RequestTransforms.Add(new Cookie2Jwt(configuration));
+                t.RequestTransforms.Add(new Cookie2Jwt(configuration,t.Services.GetRequiredService<IRolesCache>()));
                 t.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
             });
     }
