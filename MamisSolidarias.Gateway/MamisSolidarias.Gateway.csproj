@@ -14,7 +14,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="FastEndpoints.Swagger" Version="5.7.0" />
-      <PackageReference Include="HotChocolate.AspNetCore" Version="12.16.0" />
+      <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.1" />
       <PackageReference Include="HotChocolate.Diagnostics" Version="12.16.0" />
       <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.16.0" />
       <PackageReference Include="MamisSolidarias.HttpClient.Users" Version="1.0.17" />
