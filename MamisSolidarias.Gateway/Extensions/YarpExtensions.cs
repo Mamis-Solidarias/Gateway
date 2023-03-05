@@ -12,7 +12,7 @@ public static class YarpExtensions
             .LoadFromConfig(configuration.GetSection("ReverseProxy"))
             .AddTransforms(t =>
             {
-                t.RequestTransforms.Add(new Cookie2Jwt(configuration,t.Services.GetRequiredService<IRolesCache>()));
+                t.RequestTransforms.Add(new Cookie2Jwt(configuration,t.Services.GetRequiredService<IRolesCache>(),t.Services.GetRequiredService<ILogger<Cookie2Jwt>>()));
                 t.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
             });
     }

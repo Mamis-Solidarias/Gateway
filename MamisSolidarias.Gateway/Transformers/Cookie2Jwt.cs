@@ -13,10 +13,12 @@ internal sealed class Cookie2Jwt: RequestTransform
 {
     private readonly IConfiguration _configuration;
     private readonly IRolesCache _rolesCache;
-    public Cookie2Jwt(IConfiguration configuration, IRolesCache rolesCache)
+    private readonly ILogger<Cookie2Jwt> _logger;
+    public Cookie2Jwt(IConfiguration configuration, IRolesCache rolesCache, ILogger<Cookie2Jwt> logger)
     {
 	    _configuration = configuration;
 	    _rolesCache = rolesCache;
+        _logger = logger;
     }
 
     public override async ValueTask ApplyAsync(RequestTransformContext context)
@@ -61,6 +63,9 @@ internal sealed class Cookie2Jwt: RequestTransform
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var jwt = tokenHandler.WriteToken(token);
+        
+        if (_configuration.GetValue<bool>("Jwt:Debug"))
+            _logger.LogInformation("JWT: {jwt}", jwt);
 
         context.ProxyRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
     }

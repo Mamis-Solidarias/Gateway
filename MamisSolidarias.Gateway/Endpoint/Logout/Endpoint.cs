@@ -1,6 +1,4 @@
 using FastEndpoints;
-using MamisSolidarias.Gateway.Services;
-using MamisSolidarias.Utils.Security;
 using Microsoft.AspNetCore.Authentication;
 
 namespace MamisSolidarias.Gateway.Endpoint.Logout;
