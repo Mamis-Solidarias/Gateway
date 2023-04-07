@@ -56,8 +56,7 @@ internal sealed class Cookie2Jwt: RequestTransform
             Audience = context.DestinationPrefix,
             Issuer = _configuration["Jwt:Issuer"],
             Expires = DateTime.UtcNow.AddMinutes(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
         
         var tokenHandler = new JwtSecurityTokenHandler();

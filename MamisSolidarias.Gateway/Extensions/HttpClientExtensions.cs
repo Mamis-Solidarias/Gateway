@@ -1,4 +1,3 @@
-using System.Net;
 
 namespace MamisSolidarias.Gateway.Extensions;
 
@@ -14,7 +13,6 @@ internal static class HttpClientExtensions
 		services.AddHttpClient($"{service}gql", (provider, client) =>
 		{
 			client.BaseAddress = new Uri(baseAddress);
-			client.DefaultRequestVersion = HttpVersion.Version20;
 			var context = provider.GetRequiredService<IHttpContextAccessor>().HttpContext;
 			if (context is null)
 			{
